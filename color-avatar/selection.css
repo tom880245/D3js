@@ -1,0 +1,159 @@
+:root{
+  --border: #cbd5e1;
+  --subtle: #e5e7eb;
+  --card-bg: #fafafa;
+  --text: #334155;
+  --label: #446797;
+  --focus: #2563eb;
+}
+
+/* 外層框＋三列 */
+.layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;  /* 上中下 */
+  gap: 12px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  background:#fff;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* 每一列也有框，視覺更清楚 */
+.row {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #fff;
+}
+
+/* Row1/Row3：單欄，內容置中 */
+.row-top .col,
+.row-bottom .col {
+  display: grid;
+  place-items: center;   /* 水平垂直置中 */
+  text-align: center;
+}
+
+/* Row2：三欄 */
+.row-middle {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 900px) 1fr; /* 左/中/右 */
+  align-items: center;      /* 垂直置中中間欄位的內容 */
+  justify-items: center;    /* 水平置中每欄 */
+  min-height: 420px;        /* 中列高度，可依需要調整 */
+  gap: 12px;
+}
+
+/* 三欄各自的框（可保留虛線幫助對齊，之後要淡化可刪） */
+.row-middle .col {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--subtle);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;   /* 內部若有溢出避免蓋過框線 */
+}
+
+/* 左欄控制面板 */
+#controls {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 8px;
+  width: 100%;
+  max-height: 100%;
+  overflow: auto;                 /* 內容多時可滾動 */
+  scrollbar-gutter: stable both-edges;
+}
+
+.ctrl-card {
+  border: 1px solid var(--subtle);
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  background: var(--card-bg);
+}
+
+.ctrl-card h4 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.ctrl-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 8px;
+  align-items: center;
+}
+
+.ctrl-grid label {
+  font-size: 12px;
+  color: var(--label);
+}
+
+.ctrl-grid input[type="number"] {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+}
+
+.ctrl-grid input[type="range"] {
+  width: 100%;
+}
+
+/* 亮度：滑桿 + 數值顯示 */
+.bright-row {
+  grid-column: 1 / -1;          /* 讓整排佔滿兩欄 */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bright-row input[type="range"] { flex: 1; }
+.bright-value {
+  min-width: 42px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text);
+}
+
+/* 可存取性：focus 樣式 */
+.ctrl-grid input:focus,
+.bright-row input:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* 中間欄專門放圖（SVG） */
+#scene {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 標題區小美化 */
+.title h1 { margin: 0 0 6px; }
+.text { margin: 0; color: var(--text); }
+
+/* 響應式：窄螢幕時，第二列改為上下排（控制面板在上、圖在下） */
+@media (max-width: 960px) {
+  .row-middle {
+    grid-template-columns: 1fr;       /* 單欄 */
+    align-items: stretch;
+  }
+  .row-middle .col { min-height: 280px; }
+  #controls { max-height: none; }     /* 小螢幕不強制高度 */
+}
+
+/* 更窄時字體微調 */
+@media (max-width: 420px) {
+  .ctrl-card h4 { font-size: 13px; }
+  .ctrl-grid label { font-size: 11px; }
+  .bright-value { min-width: 36px; }
+}

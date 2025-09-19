@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>顏色展示</title>
+    <meta name="description" content="給定衣服與褲子顏色，輸出完整人物樣式，支援即時調整。">
+    <link rel="stylesheet" href="selection.css">
+    <!-- 若用 CDN，可加 SRI（下面是範例雛形，請替換為對應版本的 integrity 值） -->
+    <!-- <link rel="preconnect" href="https://d3js.org"> -->
+  </head>
+  <body> 
+    <main class="layout"> 
+    <!-- Row 1：一欄（置中放標題） --> 
+     <header class="row row-top"> <div class="col"> <h1>顏色展示</h1> <p class="text">給定衣服 褲子顏色，輸出完整樣式</p> </div> </header>
+    <!-- Row 2：三欄（圖在中間欄） --> 
+     <section class="row row-middle"> <div class="col side left" id="controls"></div> <div class="col center" id="charts"> <svg id="scene"></svg> </div> <div class="col side right"></div> </section> 
+    <!-- Row 3：一欄（之後可放控制/說明） --> 
+     <footer class="row row-bottom"> <div class="col"> <!-- 這裡先留白或放描述/按鈕 --> </div> </footer> 
+    
+
+    </main>
+    <noscript>此互動頁面需要啟用 JavaScript 才能運作。</noscript>
+  
+    <!-- 建議加 defer，避免阻塞渲染 -->
+    <script src="https://d3js.org/d3.v7.min.js" defer></script>
+    <script src="selection.js" defer></script>
+  </body>
+</html>
